@@ -65,7 +65,7 @@
 
 -(void)btnClick2:(UIButton *)sender{
     // 1.获取应用程序AppA的Page1页面的URL
-    NSURL *appBUrl = [NSURL URLWithString:@"AppA://Page1"];
+    NSURL *appBUrl = [NSURL URLWithString:@"AppA://Page1?AppB"];
     
     // 2.判断手机中是否安装了对应程序
     if ([[UIApplication sharedApplication] canOpenURL:appBUrl]) {
@@ -78,7 +78,7 @@
 
 -(void)btnClick3:(UIButton *)sender{
     // 1.获取应用程序AppA的Page2页面的URL
-    NSURL *appBUrl = [NSURL URLWithString:@"AppA://Page2"];
+    NSURL *appBUrl = [NSURL URLWithString:@"AppA://Page2?AppB"];
     
     // 2.判断手机中是否安装了对应程序
     if ([[UIApplication sharedApplication] canOpenURL:appBUrl]) {

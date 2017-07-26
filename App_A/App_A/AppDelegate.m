@@ -36,16 +36,20 @@
     // 2.获得主控制器
     ViewController *mainVc = [rootNav.childViewControllers firstObject];
     
+  
+    
     // 3.每次跳转前必须是在跟控制器(细节)
     [rootNav popToRootViewControllerAnimated:NO];
     
     // 4.根据字符串关键字来跳转到不同页面
     if ([url.absoluteString containsString:@"Page1"]) { // 跳转到应用App-B的Page1页面
         FirstViewController *vc = [[FirstViewController alloc]init];
+        vc.urlString = url.absoluteString;// 保存完整的App-B的URL给主控制器
         [mainVc.navigationController pushViewController:vc animated:YES];
         
     } else if ([url.absoluteString containsString:@"Page2"]) { // 跳转到应用App-B的Page2页面
         SecondViewController *vc = [[SecondViewController alloc]init];
+        vc.urlString = url.absoluteString;// 保存完整的App-B的URL给主控制器
         [mainVc.navigationController pushViewController:vc animated:YES];
     }
     

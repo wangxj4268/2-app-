@@ -10,4 +10,7 @@
 
 @interface FirstViewController : UIViewController
 
+// 用来保存App-B完整的URL
+@property (nonatomic, copy) NSString *urlString;
+
 @end

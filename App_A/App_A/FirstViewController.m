@@ -18,6 +18,28 @@
     [super viewDidLoad];
     self.view.backgroundColor  = [UIColor purpleColor];
     self.title = @"第一个界面";
+    
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = CGRectMake(100, 100, 100, 100);
+    btn.backgroundColor = [UIColor redColor];
+    [btn setTitle:@"调回AppB" forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn];
+}
+
+-(void)btnClick:(UIButton *)sender{
+    // 1.拿到对应应用程序的URL Scheme
+    NSString *urlSchemeString = [[self.urlString componentsSeparatedByString:@"?"] lastObject];
+    NSString *urlString = [urlSchemeString stringByAppendingString:@"://"];
+    
+    // 1.获取对应应用程序的URL
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    // 2.判断是否可以打开
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

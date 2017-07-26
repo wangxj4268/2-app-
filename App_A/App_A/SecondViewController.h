@@ -10,4 +10,7 @@
 
 @interface SecondViewController : UIViewController
 
+// 用来保存App-A完整的URL
+@property (nonatomic, copy) NSString *urlString;
+
 @end
