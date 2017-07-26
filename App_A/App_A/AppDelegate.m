@@ -7,7 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ViewController.h"
+#import "FirstViewController.h"
+#import "SecondViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -16,10 +18,39 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    _window.backgroundColor = [UIColor clearColor];
+    [_window makeKeyAndVisible];
+    
+    ViewController *vc = [[ViewController alloc]init];
+    UINavigationController *nav=[[UINavigationController alloc]initWithRootViewController:vc];
+    _window.rootViewController=nav;
     return YES;
 }
 
+//3.在应用App-A中通过AppDelegate监听跳转，进行判断，执行不同页面的跳转
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    // 1.获取导航栏控制器
+    UINavigationController *rootNav = (UINavigationController *)self.window.rootViewController;
+    // 2.获得主控制器
+    ViewController *mainVc = [rootNav.childViewControllers firstObject];
+    
+    // 3.每次跳转前必须是在跟控制器(细节)
+    [rootNav popToRootViewControllerAnimated:NO];
+    
+    // 4.根据字符串关键字来跳转到不同页面
+    if ([url.absoluteString containsString:@"Page1"]) { // 跳转到应用App-B的Page1页面
+        FirstViewController *vc = [[FirstViewController alloc]init];
+        [mainVc.navigationController pushViewController:vc animated:YES];
+        
+    } else if ([url.absoluteString containsString:@"Page2"]) { // 跳转到应用App-B的Page2页面
+        SecondViewController *vc = [[SecondViewController alloc]init];
+        [mainVc.navigationController pushViewController:vc animated:YES];
+    }
+    
+    return YES;
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
